@@ -77,40 +77,33 @@
 
 
 
-    <div class="path">
+    <div class="path" id="breadcrumb">
         <h2>Home</h2>
         <h2 class="vertical-line">Categories</h2>
-        <h2 class="vertical-line">T-Shirts</h2>
-        <h2 class="vertical-line">Astronaut T-shirt</h2>
+        <h2 class="vertical-line" id="category-path">Loading...</h2>
+        <h2 class="vertical-line" id="product-path">Loading...</h2>
     </div>
 
     <main>
         <div class="product-section-top">
-            <div class="product-img">
-                <ul>
-                    <li><img src="assets\layers (1).jpg" alt=""></li>
-                    <li><img src="assets\layers (1).jpg" alt=""></li>
-                    <li><img src="assets\layers (1).jpg" alt=""></li>
-                    <li><img src="assets\layers (1).jpg" alt=""></li>
-                    <li><img src="assets\layers (1).jpg" alt=""></li>
+            <div class="product-img" id="product-images">
+                <ul id="thumbnail-list">
+                    <!-- Thumbnails will be loaded here -->
                 </ul>
-                <img src="assets\layers (1).jpg" alt="" class="display-img">
+                <img src="" alt="" class="display-img" id="main-image">
             </div>
 
-            <div class="product-desc">
-                <h1>Astronaut Oversize T-shirt Men's Travel Nylon Solid Plain Sports Summer Gym Workout Running Travel
-                    Trekking and Sunscreen jacket for Men Boys Nylon.</h1>
+            <div class="product-desc" id="product-details">
+                <h1 id="product-title">Loading...</h1>
                 <br>
                 <p>Rating: 4.5 (1005 Reviews)</p>
                 <br>
-                <p>Crafted in premium Italian striped print cotton, exclusively printed in Italy with innate performance
-                    properties ensuring proper thermo regulation and maximum comfort. Cut with extra room for movement,
-                    pointed shirt collar.</p>
+                <p id="product-description">Loading...</p>
                 <br>
-                <div class="product-price">
-                    <h2>₹ 1200</h2>
-                    <h4>₹ 2499</h4>
-                    <h3>(50% Off)</h3>
+                <div class="product-price" id="product-price">
+                    <h2 id="price-current">₹ Loading</h2>
+                    <h4 id="price-original" style="display:none;">₹ Loading</h4>
+                    <h3 id="discount">(No discount)</h3>
                 </div>
                 <br>
                 <div class="size-selection">
@@ -232,75 +225,8 @@
         </div>
 
         <h1 class="extra-item-heading">More items you may like in apparels</h1>
-        <div class="items-also-like-products">
-            <div class="similar-product">
-                <a href="product_view.html">
-                    <div class="product-img-card">
-                        <img src="assets\layers (6).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="product-cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-            <div class="similar-product">
-                <a href="product_view.html">
-                    <div class="product-img-card">
-                        <img src="assets/Tee (1).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="product-cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-            <div class="similar-product">
-                <a href="product_view.html">
-                    <div class="product-img-card">
-                        <img src="assets\layers (5).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="product-cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-            <div class="similar-product">
-                <a href="product_view.html">
-                    <div class="product-img-card">
-                        <img src="assets/Tee (9).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="product-cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
+        <div class="items-also-like-products" id="similar-products-container">
+            <!-- Similar products will be loaded here -->
         </div>
     </main>
 
@@ -359,6 +285,101 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Load product and similar products from API
+        const API_BASE = 'http://localhost:5000'; // Change to deployed URL later
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+
+            if (!slug) {
+                document.getElementById('product-details').innerHTML = '<p>Error: No product slug provided.</p>';
+                return;
+            }
+
+            const loadProductDetails = async () => {
+                try {
+                    const response = await fetch(`${API_BASE}/api/products/${slug}`);
+                    if (!response.ok) throw new Error('Product not found');
+                    const product = await response.json();
+
+                    // Update breadcrumb
+                    const categoryPath = product.categories.join(' > ');
+                    document.getElementById('category-path').textContent = categoryPath || 'General';
+                    document.getElementById('product-path').textContent = product.title;
+
+                    // Update images (assuming single image for thumbs and main)
+                    const image = product.images[0] || '';
+                    const thumbnailList = document.getElementById('thumbnail-list');
+                    thumbnailList.innerHTML = `
+                        <li><img src="${image}" alt="${product.title}" onclick="changeMainImage(this.src)"></li>
+                        <li><img src="${image}" alt="${product.title}" onclick="changeMainImage(this.src)"></li>
+                        <li><img src="${image}" alt="${product.title}" onclick="changeMainImage(this.src)"></li>
+                        <li><img src="${image}" alt="${product.title}" onclick="changeMainImage(this.src)"></li>
+                        <li><img src="${image}" alt="${product.title}" onclick="changeMainImage(this.src)"></li>
+                    `;
+                    document.getElementById('main-image').src = image;
+                    document.getElementById('main-image').alt = product.title;
+
+                    // Update product details
+                    document.getElementById('product-title').textContent = product.title;
+                    document.getElementById('product-description').textContent = product.description;
+                    document.getElementById('price-current').textContent = `₹ ${product.price}`;
+                    // For discount, assuming none for now; can add logic later
+
+                    // Load similar products
+                    loadSimilarProducts(product._id);
+                } catch (error) {
+                    console.error('Error loading product:', error);
+                    document.getElementById('product-details').innerHTML = '<p>Error loading product. Please try again.</p>';
+                }
+            };
+
+            const loadSimilarProducts = async (currentId) => {
+                try {
+                    const response = await fetch(`${API_BASE}/api/products`);
+                    const data = await response.json();
+                    const products = data.products.filter(p => p._id !== currentId).slice(0, 4);
+
+                    const container = document.getElementById('similar-products-container');
+                    if (products.length === 0) {
+                        container.innerHTML = '<p>No similar products.</p>';
+                        return;
+                    }
+
+                    container.innerHTML = products.map(p => `
+                        <div class="similar-product">
+                            <a href="product_view.html?slug=${p.slug}">
+                                <div class="product-img-card">
+                                    <img src="${p.images[0]}" alt="${p.title}">
+                                </div>
+                            </a>
+                            <div class="product-description">
+                                <h3>${p.title}</h3>
+                                <div class="description">
+                                    <p>${p.description}</p>
+                                    <h4>₹ ${p.price}</h4>
+                                </div>
+                                <div class="product-cart-button">
+                                    <p>+ Add to cart</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error loading similar products:', error);
+                }
+            };
+
+            window.changeMainImage = function(src) {
+                document.getElementById('main-image').src = src;
+            };
+
+            loadProductDetails();
+        });
+    </script>
 </body>
 
 </html>

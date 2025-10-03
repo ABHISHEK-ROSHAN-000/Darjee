@@ -151,151 +151,8 @@
             </div>
         </div>
         <!--------------------------------Products------------------------------------------------->
-        <div class="featured-new-arrivals-section">
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets/Tee (1).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets/Tee (2).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets/Tee (3).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets/Tee (4).png" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets\layers (6).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets\layers (5).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets\layers (3).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="product_view.html">
-                    <div class="img-card">
-                        <img src="assets\layers (4).jpg" alt="">
-                    </div>
-                </a>
-                <div class="product-description">
-                    <h3>Astronaut Oversize T-Shirt</h3>
-                    <div class="description">
-                        <p>Lorem ipsum dolor sit</p>
-                        <h4>₹ 1299</h4>
-                    </div>
-                    <div class="cart-button">
-                        <p>+ Add to cart</p>
-                    </div>
-                </div>
-            </div>
-
+        <div class="featured-new-arrivals-section" id="products-container">
+            <!-- Products will be loaded dynamically -->
         </div>
 
     </div>
@@ -401,6 +258,48 @@
                 current = next;
             }, intervalMs);
         });
+    </script>
+
+    <script>
+        // Load products from API
+        const API_BASE = 'http://localhost:5000'; // Change to deployed URL later
+
+        async function loadProducts() {
+            const container = document.getElementById('products-container');
+            if (!container) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/products`);
+                if (!response.ok) throw new Error('Failed to fetch products');
+                const data = await response.json();
+                const products = data.products || [];
+
+                container.innerHTML = products.map(product => `
+                    <div class="product">
+                        <a href="product_view.html?slug=${product.slug}">
+                            <div class="img-card">
+                                <img src="${product.images[0]}" alt="${product.title}">
+                            </div>
+                        </a>
+                        <div class="product-description">
+                            <h3>${product.title}</h3>
+                            <div class="description">
+                                <p>${product.description}</p>
+                                <h4>₹ ${product.price}</h4>
+                            </div>
+                            <div class="cart-button">
+                                <p>+ Add to cart</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading products:', error);
+                container.innerHTML = '<p>Error loading products. Please check the API.</p>';
+            }
+        }
+
+        loadProducts();
     </script>
     <script src="nav.js"></script>
 </body>
