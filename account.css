@@ -1,0 +1,88 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --accent-color: #000000;
+    --text-color: #000000;
+    --text-light: #808080;
+    --bg-color: #FFFFFF;
+    /* --footer-bg: #003BC8;
+    --footer-bg-dark: #194ECD; */
+    --footer-bg: #000000;
+    --footer-bg-dark: #181818;
+    --shadow-color: rgba(224, 224, 224, 0.6);
+    --font-family: "Karla", sans-serif;
+    --border-radius: 10px;
+    --transition-speed: 0.5s;
+}
+
+.cards-wraper {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cards {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0px 20px var(--shadow-color);
+    cursor: pointer;
+    transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.card:hover {
+    background-color: #000000;
+    color: white;
+    transform: translateY(-5px);
+}
+
+.card h1 {
+    /* color: var(--primary-color); */
+    font-family: var(--font-family);
+    margin-bottom: 10px;
+}
+
+.card p {
+    /* color: var(--text-light); */
+    font-family: var(--font-family);
+}
+
+/* Responsive Design */
+@media screen and (min-width: 768px) {
+    .cards {
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
+    
+    .card {
+        width: calc(50% - 20px);
+        max-width: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .cards {
+        margin-left: 12vw;
+        margin-right: 12vw;
+    }
+    
+    .card {
+        width: calc(33.333% - 20px);
+    }
+}

@@ -1,0 +1,288 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --accent-color: #000000;
+    --text-color: #000000;
+    --text-light: #808080;
+    --bg-color: #FFFFFF;
+    /* --footer-bg: #003BC8;
+    --footer-bg-dark: #194ECD; */
+    --footer-bg: #000000;
+    --footer-bg-dark: #181818;
+    --shadow-color: rgba(224, 224, 224, 0);
+    --font-family: "Karla", sans-serif;
+    --border-radius: 10px;
+    --transition-speed: 0.5s;
+}
+
+.back-button a {
+    text-decoration: none;
+    color: #000000;
+    margin-top: 2vh;
+    margin-left: 12vw;
+    margin-right: 12vw;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-button img {
+    width: 1.5vw;
+}
+
+form {
+    margin-left: 12vw;
+    margin-right: 12vw;
+    margin-top: 4vh;
+    margin-bottom: 12vh;
+}
+
+.name-field {
+    display: flex;
+    gap: 1vw;
+}
+
+.notched-fieldset-name {
+      border: 1px solid #cfcfcf;
+      border-radius: 12px;
+      padding: 12px 14px;               /* space inside the rounded box */
+      max-width: 25%;
+      width: 50%;
+      margin: 0;
+      transition: border-color 0.3s ease, color 0.4s ease;
+    }
+
+    /* Legend (the small label that overlaps the border) */
+    .notched-fieldset-name legend {
+      padding: 0 8px;                   /* creates the gap in the border */
+      font-size: 1rem;
+      color: #6b6b6b;
+      width: auto;                      /* keep it tight to content */
+      margin-left: 6px;
+      background: #fff;                 /* hides the border behind it */
+      line-height: 1;
+    }
+
+    /* The actual input */
+    .notched-fieldset-name input[type="text"] {
+      display: block;
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0px 0 6px;              /* vertical spacing inside the field */
+      font-size: 1.3rem;
+      background: transparent;
+    }
+
+    .notched-fieldset-name:focus-within {
+      border-color: #000000;
+    }
+
+    .notched-fieldset-name:focus-within legend {
+        color: black;
+    }
+
+
+.notched-fieldset {
+      border: 1px solid #cfcfcf;
+      border-radius: 12px;
+      padding: 12px 14px;               /* space inside the rounded box */
+      max-width: 51.5%;
+      width: 51.5%;
+      margin: 0;
+      transition: border-color 0.3s ease, color 0.4s ease;
+    }
+
+    /* Legend (the small label that overlaps the border) */
+    .notched-fieldset legend {
+      padding: 0 8px;                   /* creates the gap in the border */
+      font-size: 1rem;
+      color: #6b6b6b;
+      width: auto;                      /* keep it tight to content */
+      margin-left: 6px;
+      background: #fff;                 /* hides the border behind it */
+      line-height: 1;
+    }
+
+    /* The actual input */
+    .notched-fieldset input[type="text"] {
+      display: block;
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0px 0 6px;              /* vertical spacing inside the field */
+      font-size: 1.3rem;
+      background: transparent;
+    }
+
+    .notched-fieldset input[type="password"] {
+      display: block;
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0px 0 6px;              /* vertical spacing inside the field */
+      font-size: 1.5rem;
+      letter-spacing: 0.1vw;
+      background: transparent;
+    }
+
+    .notched-fieldset:focus-within {
+      border-color: #000000;
+    }
+
+    .notched-fieldset:focus-within legend {
+        color: black;
+    }
+
+.gender p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.gender {
+    gap: 10vw;
+}
+
+.save-button {
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px black;
+    border-radius: 12px;
+    width: 51.5%;
+    height: 8vh;
+    font-size: 1.4rem;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.save-button:hover {
+    background-color: black;
+    color: white;
+}
+
+/* ----------------Responsive Design------------------- */
+
+@media screen and (max-width: 767px) {
+    .back-button a {
+        margin-left: 5vw;
+        margin-right: 5vw;
+        margin-top: 2vh;
+    }
+
+    .back-button img {
+        width: 4vw;
+    }
+
+    form {
+        margin-left: 5vw;
+        margin-right: 5vw;
+        margin-top: 4vh;
+        margin-bottom: 8vh;
+    }
+
+    .name-field {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .notched-fieldset-name {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .notched-fieldset {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .notched-fieldset legend {
+        font-size: 0.9rem;
+    }
+
+    .notched-fieldset-name legend {
+        font-size: 0.9rem;
+    }
+
+    .notched-fieldset input[type="text"] {
+        font-size: 1.1rem;
+    }
+
+    .notched-fieldset-name input[type="text"] {
+        font-size: 1.1rem;
+    }
+
+    .notched-fieldset input[type="password"] {
+        font-size: 1.3rem;
+    }
+
+    .gender {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .gender p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .save-button {
+        width: 100%;
+        height: 6vh;
+        font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+        margin-top: 4vh;
+        border-radius: 8px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .back-button a {
+        margin-left: 8vw;
+        margin-right: 8vw;
+    }
+
+    .back-button img {
+        width: 2.5vw;
+    }
+
+    form {
+        margin-left: 8vw;
+        margin-right: 8vw;
+        margin-top: 4vh;
+        margin-bottom: 10vh;
+    }
+
+    .name-field {
+        gap: 2vw;
+    }
+
+    .notched-fieldset-name {
+        max-width: 49%;
+        width: 49%;
+    }
+
+    .notched-fieldset {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .save-button {
+        width: 100%;
+        height: 7vh;
+        font-size: 1.3rem;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .back-button a {
+        margin-left: 12vw;
+        margin-right: 12vw;
+    }
+
+    form {
+        margin-left: 12vw;
+        margin-right: 12vw;
+    }
+}
